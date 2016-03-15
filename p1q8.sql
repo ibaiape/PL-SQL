@@ -1,0 +1,17 @@
+set serveroutput on
+DECLARE
+a CENTROS.IDCENTRO%TYPE;
+BEGIN
+  SELECT MAX(IDCENTRO) INTO a FROM CENTROS;
+  DELETE FROM CENTROS WHERE IDCENTRO = a;
+  IF SQL%FOUND THEN
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Borrado el centro: '||a);
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('No existe el centro: '||a);
+  END IF;
+END;
+
+SELECT  * FROM CENTROS;
+
+
