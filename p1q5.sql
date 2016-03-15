@@ -1,8 +1,14 @@
-SELECT * FROM CENTROS;
-
 DECLARE
 a CENTROS.ID%TYPE;
-b CENTROS.PROVINCIA%TYPE;
 BEGIN
-SELECT LAST(ID) INTO a FROM CENTROS;
-SELECT 'Araba' INTO b FROM DUAL;
+SELECT MAX(ID) INTO a FROM CENTROS;
+  update CENTROS
+    SET provincia='Araba'
+    where ID=a;
+  IF SQL%FOUND THEN
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Actualizado el centro: '||a);
+  ELSE
+    DBMS_OUTPUT.PUT_LINE('No existe el centro: '||a);
+  END IF;
+END;

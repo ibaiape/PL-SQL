@@ -1,5 +1,5 @@
 set serveroutput on;
-
+execute ver_trabajador;
 --1
 /*
 declare

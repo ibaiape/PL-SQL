@@ -5,7 +5,7 @@ begin
   select CENTROS.NOMBRE INTO B FROM CENTROS WHERE UPPER(NOMBRE) = 'ABRERA';
   
   IF SQL%FOUND THEN
-    DBMS_OUTPUT.put_line('Ya hay un centro con el nombre Abrera');
+    'Ya hay un centro con el nombre Abrera');
   END IF;
 exception
   when NO_DATA_FOUND then
