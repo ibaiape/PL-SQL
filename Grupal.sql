@@ -44,3 +44,20 @@ CREATE OR REPLACE PROCEDURE buscar_centro_por_nombre(
       RAISE_APPLICATION_ERROR(-20111,'No se ha encontrado el centro.');
   END;
   
+CREATE OR REPLACE FUNCTION buscar_centro_por_nombre
+    (v_nCentro IN CENTROS.NOMBRE%TYPE)
+    return NUMBER
+  IS
+  v_idCentro CENTROS.IDCENTRO%TYPE;
+  E_CENTRO_ERRONEO EXCEPTION;
+  BEGIN
+    SELECT IDCENTRO INTO v_idCentro FROM CENTRO WHERE UPPER(NOMBRE) LIKE UPPER(V_NCENTRO);
+    IF SQL%NOTFOUND THEN
+      RAISE E_CENTRO_ERRONEO;
+    END IF;
+  RETURN v_idCentro;
+  EXCEPTION
+    WHEN E_CENTRO_ERRONEO THEN
+      RAISE_APPLICATION_ERROR(-20111,'No se ha encontrado el centro.');
+  END buscar_centro_por_nombre;
+  
